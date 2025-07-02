@@ -4,11 +4,21 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.DebugGraphics;
 import javax.swing.JPanel;
 
@@ -98,6 +108,36 @@ public class MyDrawer2 extends JPanel{
 	
 	public void changeColor(Color newColor) {
 		defaultColor = newColor;
+	}
+	
+	public boolean saveJPEG(File savefile) throws Exception {
+		BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
+		Graphics2D g2d = img.createGraphics();
+		paint(g2d);
+		
+		return ImageIO.write(img, "jpg", savefile);
+			
+		
+	}
+	
+	public void saveLines(File savefile) throws Exception{
+		ObjectOutputStream oout = new ObjectOutputStream (new FileOutputStream(savefile));
+		
+		oout.writeObject(lines);
+		oout.flush();
+		oout.close();
+	}
+	public void loadLines(File loadfile) throws Exception{
+		try(ObjectInputStream oin = 
+				new ObjectInputStream(new FileInputStream(loadfile));){
+			    Object obj = oin.readObject();
+			    if(obj instanceof ArrayList) {
+			    	lines = (ArrayList<Line2>)obj;
+			    	
+			    	repaint();
+			    }
+		}
+		
 	}
 	
 }
