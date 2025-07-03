@@ -8,9 +8,11 @@ import java.util.HashMap;
 public class Line2 implements Serializable{
 	private ArrayList<HashMap<String, Integer>> points;
 	private Color color;
-	public Line2(Color color) {
+	private int currentValue;
+	public Line2(Color color, int currentValue) {
 		points = new ArrayList<>();
 		this.color = color;
+		this.currentValue = currentValue;
 	}
 
 	public void addPoint(HashMap<String, Integer> p) {
@@ -23,4 +25,5 @@ public class Line2 implements Serializable{
 	}
 	public int numberOfPoint() {return points.size();}
     public Color getColor() {return color;}
+    public int slideValue() {return currentValue;}
 }

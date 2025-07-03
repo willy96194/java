@@ -23,8 +23,8 @@ import tw.willy.api.MyDrawer2;
 public class MySign extends JFrame{
 	private MyDrawer2 myDrawer;
 	private JButton clear, undo, redo, color,saveJpg,saveObject,loadObject;
-//	private JSlider slider;
-//	private int currentValue;
+	private JSlider slider;
+	private int currentValue ;
 	
 	
 	public MySign() {
@@ -43,17 +43,17 @@ public class MySign extends JFrame{
 		saveObject = new JButton("saveobject");top.add(saveObject);
 		loadObject = new JButton("loadobject");top.add(loadObject);
 		
-//		slider = new JSlider(10,100,20);
-//		slider.setMajorTickSpacing(10);
-//	    slider.setPaintTicks(true);
-//	    slider.setPaintLabels(true);
+		slider = new JSlider(1,100,myDrawer.getSlide());
+		slider.setMajorTickSpacing(10);
+	    slider.setPaintTicks(true);
+	    slider.setPaintLabels(true);
 	    
 	    
 	    
 
 		
 		add (top,BorderLayout.NORTH);
-//		add(slider, BorderLayout.SOUTH);
+		add(slider, BorderLayout.SOUTH);
 		
 		setSize(800,640);
 		setVisible(true);
@@ -118,17 +118,18 @@ public class MySign extends JFrame{
 		
 		
 		
-//        slider.addChangeListener(new ChangeListener() {
-//			
-//			@Override
-//			public void stateChanged(ChangeEvent e) {
-//				currentValue = slider.getValue();
-////				myDrawer.slideValue(currentValue); 
-//			}
-//		});
+        slider.addChangeListener(new ChangeListener() {
+			
+			@Override
+			public void stateChanged(ChangeEvent e) {
+				currentValue = slider.getValue();
+				myDrawer.slideValue(currentValue); 
+			}
+		});
 	}
 	private void changeColor() {
-		Color newColor = JColorChooser.showDialog(this, "Change Color", myDrawer.getColor());
+		Color newColor = JColorChooser.showDialog(
+				this, "Change Color", myDrawer.getColor());
 	    if(newColor != null) {
 	    	myDrawer.changeColor(newColor);
 	    }
@@ -155,11 +156,8 @@ public class MySign extends JFrame{
 		if (jfc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION){
 			File saveFile = jfc.getSelectedFile();
 			try {
-				if(myDrawer.saveJPEG(saveFile)) {
-					JOptionPane.showMessageDialog(this, "save sucess");
-				}else {
-					JOptionPane.showMessageDialog(this, "save failure");
-				}
+				myDrawer.saveLines(saveFile);
+				
 			}catch(Exception e) {
 				JOptionPane.showMessageDialog(this, "save failure");
 			}
@@ -171,13 +169,10 @@ public class MySign extends JFrame{
 		if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
 			File loadFile = jfc.getSelectedFile();
 			try {
-				if(myDrawer.saveJPEG(loadFile)) {
-					JOptionPane.showMessageDialog(this, "save sucess");
-				}else {
-					JOptionPane.showMessageDialog(this, "save failure");
-				}
+				myDrawer.loadLines(loadFile); 
+				
 			}catch(Exception e) {
-				JOptionPane.showMessageDialog(this, "save failure");
+				JOptionPane.showMessageDialog(this, "load failure");
 			}
 		}
 	}

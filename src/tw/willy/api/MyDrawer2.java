@@ -26,6 +26,7 @@ public class MyDrawer2 extends JPanel{
 //	private ArrayList<Point> line;
 	private ArrayList<Line2> lines ,recycler;
 	private Color defaultColor;
+	private int currentValue = 1;
 	
 	public MyDrawer2() {
 		lines = new ArrayList<>();
@@ -48,10 +49,11 @@ public class MyDrawer2 extends JPanel{
 		
 		
         Graphics2D g2d = (Graphics2D)g;
-		g2d.setStroke(new BasicStroke(4));
+		
 		
 		
 		for( Line2 line:lines) {
+			g2d.setStroke(new BasicStroke(line.slideValue()));
 			g2d.setColor(line.getColor());
 			for(int i=1;i<line.numberOfPoint();i++) {
 				HashMap<String, Integer> p1 = line.getPoint(i-1);
@@ -66,7 +68,7 @@ public class MyDrawer2 extends JPanel{
 	private class MyMouseAdapter extends MouseAdapter{
 		@Override
 		public void mousePressed(MouseEvent e) {
-			Line2 line = new Line2(defaultColor);
+			Line2 line = new Line2(defaultColor,currentValue);
 			HashMap<String, Integer> point = new HashMap<>();
 			point.put("x",e.getX());point.put("y",e.getY());
 			line.addPoint(point);
@@ -109,6 +111,13 @@ public class MyDrawer2 extends JPanel{
 	public void changeColor(Color newColor) {
 		defaultColor = newColor;
 	}
+	public int getSlide() {
+		return currentValue;
+	}
+	
+	public void slideValue(int newSlide) {
+		currentValue = newSlide;
+	}
 	
 	public boolean saveJPEG(File savefile) throws Exception {
 		BufferedImage img = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_RGB);
@@ -132,7 +141,7 @@ public class MyDrawer2 extends JPanel{
 				new ObjectInputStream(new FileInputStream(loadfile));){
 			    Object obj = oin.readObject();
 			    if(obj instanceof ArrayList) {
-			    	lines = (ArrayList<Line2>)obj;
+			    	lines = (ArrayList<Line2>) obj;
 			    	
 			    	repaint();
 			    }
