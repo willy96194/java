@@ -33,6 +33,7 @@ public class Racing extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				go.setEnabled(false);
 				go();
 				
 			}
@@ -60,19 +61,17 @@ public class Racing extends JFrame{
 				lanes[lane].setText(sb.append(">").toString());
 				if(i == 99) {
 					System.out.printf("%d is %d\n",lane+1,j);
-					j++;
-					if(j>8) {
-						j=1;
-					}
-					for(Car v: cars) {
-						v.interrupt();
-						
-					}
+//					j++;
+//					if(j>8) {
+//						j=1;
+//					}
+					stopGame();
+					
 				}
 				try {
 					Thread.sleep(10 + (int)(Math.random()*20));
 				} catch (InterruptedException e) {
-					System.out.println(i);
+//					System.out.println(i);
 					break;
 				}
 			}
@@ -81,7 +80,14 @@ public class Racing extends JFrame{
 
 	public static void main(String[] args) {
 		new Racing();
-
+	}
+	
+	private void stopGame() {
+		for(Car v: cars) {
+			v.interrupt();
+			
+		}
+		go.setEnabled(true);
 	}
 
 }

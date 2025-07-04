@@ -17,6 +17,7 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import tw.willy.api.MyClock;
 import tw.willy.api.MyDrawer;
 import tw.willy.api.MyDrawer2;
 
@@ -43,7 +44,10 @@ public class MySign extends JFrame{
 		saveObject = new JButton("saveobject");top.add(saveObject);
 		loadObject = new JButton("loadobject");top.add(loadObject);
 		
-		slider = new JSlider(1,100,myDrawer.getSlide());
+		MyClock myClock = new MyClock();
+		top.add(myClock);
+		
+		slider = new JSlider(0,100,myDrawer.getSlide());
 		slider.setMajorTickSpacing(10);
 	    slider.setPaintTicks(true);
 	    slider.setPaintLabels(true);
