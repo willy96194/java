@@ -7,10 +7,10 @@ import tw.willy.api.Member;
 public class Willy36 {
 
 	public static void main(String[] args) {
-		Member m1 = new tw.willy.api.Member(1, "Willy");
-		Member m2 = new tw.willy.api.Member(2, "Eric");
-		Member m3 = new tw.willy.api.Member(2, "Tony");
-		Member m4 = new tw.willy.api.Member(1, "Andy");
+		Member m1 = new tw.willy.api.Member(1, "Willy","","");
+		Member m2 = new tw.willy.api.Member(2, "Eric","","");
+		Member m3 = new tw.willy.api.Member(2, "Tony","","");
+		Member m4 = new tw.willy.api.Member(1, "Andy","","");
 		
 		HashSet<Member> members = new HashSet<>();
 		members.add(m1);
