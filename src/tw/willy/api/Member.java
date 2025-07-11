@@ -2,12 +2,14 @@ package tw.willy.api;
 
 import java.util.Objects;
 
+//DTO/Entity
 public class Member {
 	private int id;
 	private String name;
 	private String passwd;
 	private String account;
 	
+	public Member() {}
 	public  Member(int id, String name,String account,String passwd){
 		this.id = id; this.name = name;
 		this.account = account;this.passwd = passwd;
@@ -33,6 +35,7 @@ public class Member {
 	public String getAccount() {
 		return account;
 	}
+	
 
 	public void setAccount(String account) {
 		this.account = account;
